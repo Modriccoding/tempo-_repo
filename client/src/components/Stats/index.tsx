@@ -4,6 +4,9 @@ import TopArtists from "./TopArtists";
 
 const Stats = () => {
   const [activeTab, setActiveTab] = useState<"tracks" | "artists">("tracks");
+  const [timeRange] = useState<"short_term" | "medium_term" | "long_term">(
+    "medium_term"
+  );
 
   return (
     <div className="min-h-screen bg-spotify-darkest text-white p-8">
@@ -33,7 +36,11 @@ const Stats = () => {
           </button>
         </div>
 
-        {activeTab === "tracks" ? <TopTracks /> : <TopArtists />}
+        {activeTab === "tracks" ? (
+          <TopTracks timeRange={timeRange} />
+        ) : (
+          <TopArtists timeRange={timeRange} />
+        )}
       </div>
     </div>
   );
