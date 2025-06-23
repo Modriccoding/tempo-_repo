@@ -21,7 +21,7 @@ const TopArtists: React.FC<TopArtistsProps> = ({ timeRange }) => {
     const fetchTopArtists = async () => {
       try {
         const response = await fetch(
-          `https://localhost:3000/api/spotify/top-artists?time_range=${timeRange}&limit=10`,
+          `https://tempo.local:3000/spotify/top-artists?time_range=${timeRange}&limit=10`,
           { credentials: "include" }
         );
         const data = await response.json();
