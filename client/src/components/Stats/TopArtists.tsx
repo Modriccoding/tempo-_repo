@@ -42,9 +42,9 @@ const TopArtists: React.FC<TopArtistsProps> = ({ timeRange }) => {
 
   return (
     <div>
-      <div style={{ color: "lime", fontWeight: "bold", marginBottom: "1rem" }}>
+      {/* <div style={{ color: "lime", fontWeight: "bold", marginBottom: "1rem" }}>
         test okay
-      </div>
+      </div> */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {artists.map((artist, index) => (
           <motion.div

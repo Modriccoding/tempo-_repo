@@ -6,7 +6,8 @@ import {
   Navigate,
 } from "react-router-dom";
 import axios from "axios";
-import Stats from "./components/Stats";
+import Stats from "./pages/Stats";
+import Home from "./pages/Home";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -73,8 +74,9 @@ function App() {
         <Route
           path="/login"
           element={
-            isAuthenticated ? (
-              <Navigate to="/stats" replace />
+            console.log("Login route – isAuthenticated =", isAuthenticated);
+      return isAuthenticated ? (
+              <Navigate to="/Home" replace />
             ) : (
               <div className="min-h-screen bg-spotify-darkest text-white flex items-center justify-center">
                 <button
@@ -84,6 +86,16 @@ function App() {
                   Se connecter avec Spotify
                 </button>
               </div>
+            )
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            isAuthenticated === false ? (
+              <Navigate to="/login" replace />
+            ) : (
+              <Home />
             )
           }
         />
@@ -100,7 +112,7 @@ function App() {
         <Route
           path="/"
           element={
-            <Navigate to={isAuthenticated ? "/stats" : "/login"} replace />
+            <Navigate to={isAuthenticated ? "/home" : "/login"} replace />
           }
         />
       </Routes>
