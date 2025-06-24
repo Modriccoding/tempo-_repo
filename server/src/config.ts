@@ -17,7 +17,7 @@ export const config = {
   frontend: {
     url: FRONTEND_URL,
     loginUrl: `${FRONTEND_URL}/login`,
-    dashboardUrl: `${FRONTEND_URL}/stats`,
+    dashboardUrl: `${FRONTEND_URL}/home`,
   },
   session: {
     secret: "your-secret-key",

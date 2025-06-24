@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from "../components/Navbar";
 import TopArtists from "../components/Stats/TopArtists";
 import TopTracks from "../components/Stats/TopTracks";
 
@@ -46,6 +47,7 @@ const Stats: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-spotify-darker to-spotify-darkest p-8">
+      <Navbar />
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold text-white">

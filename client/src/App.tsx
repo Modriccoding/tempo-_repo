@@ -74,8 +74,7 @@ function App() {
         <Route
           path="/login"
           element={
-            console.log("Login route – isAuthenticated =", isAuthenticated);
-      return isAuthenticated ? (
+            isAuthenticated ? (
               <Navigate to="/Home" replace />
             ) : (
               <div className="min-h-screen bg-spotify-darkest text-white flex items-center justify-center">
