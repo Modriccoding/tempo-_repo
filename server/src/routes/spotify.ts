@@ -5,6 +5,7 @@ import {
   getRecentlyPlayed,
   getCurrentPlayback,
 } from "../services/spotifyApi";
+import axios from "axios";
 
 const router = Router();
 
@@ -162,6 +163,23 @@ router.get("/test-top-artists", async (req, res) => {
   } catch (error) {
     console.error("❌ Erreur test top artistes:", error);
     res.status(500).json({ error: "Failed to fetch top artists" });
+  }
+});
+
+// Route pour récupérer le profil Spotify de l'utilisateur connecté
+router.get("/me", async (req: Request, res: Response) => {
+  try {
+    const user = req.user as AuthenticatedRequest["user"];
+    if (!user || !user.accessToken) {
+      return res.status(401).json({ error: "Non authentifié" });
+    }
+    const response = await axios.get("https://api.spotify.com/v1/me", {
+      headers: { Authorization: `Bearer ${user.accessToken}` },
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error("Erreur lors de la récupération du profil Spotify:", error);
+    res.status(500).json({ error: "Impossible de récupérer le profil Spotify" });
   }
 });
 

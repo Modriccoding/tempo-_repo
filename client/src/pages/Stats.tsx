@@ -19,7 +19,7 @@ const Stats: React.FC = () => {
     try {
       setTestMessage("Test en cours...");
       const response = await fetch(
-        "https://localhost:3000/api/spotify/test-top-artists",
+        "http://localhost:3000/api/spotify/test-top-artists",
         {
           credentials: "include",
           headers: {

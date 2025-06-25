@@ -8,6 +8,11 @@ import {
 import axios from "axios";
 import Stats from "./pages/Stats";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import Totem from "./pages/Totem";
+
+
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -105,6 +110,26 @@ function App() {
               <Navigate to="/login" replace />
             ) : (
               <Stats />
+            )
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            isAuthenticated === false ? (
+              <Navigate to="/login" replace />
+            ) : (
+              <Profile />
+            )
+          }
+        />
+        <Route
+          path="/totem"
+          element={
+            isAuthenticated === false ? (
+              <Navigate to="/login" replace />
+            ) : (
+              <Totem />
             )
           }
         />

@@ -122,7 +122,20 @@ router.get("/debug", (req, res) => {
 router.get("/logout", (req, res) => {
   console.log("Logging out user");
   req.logout(() => {
-    res.redirect("https://localhost:5174");
+    req.session.destroy((err) => {
+      res.clearCookie("connect.sid", {
+        path: "/",
+        domain: "tempo.local",
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      });
+      if (err) {
+        console.error("Erreur lors de la destruction de session:", err);
+        return res.status(500).json({ success: false, message: "Erreur lors de la déconnexion." });
+      }
+      return res.json({ success: true });
+    });
   });
 });
 
