@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import TopArtists from "../components/Stats/TopArtists";
 import TopTracks from "../components/Stats/TopTracks";
+import TopGenres from "../components/Stats/TopGenres";
 
 type TimeRange = "short_term" | "medium_term" | "long_term";
 
@@ -92,19 +93,28 @@ const Stats: React.FC = () => {
 
         {/* Stats Sections */}
         <div className="space-y-12">
-          <section>
+          <section id="top-artists">
             <h2 className="text-2xl font-bold text-white mb-6">
               Vos artistes préférés
             </h2>
             <TopArtists timeRange={timeRange} />
           </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-6">
-              Vos titres préférés
-            </h2>
-            <TopTracks timeRange={timeRange} />
-          </section>
+          {/* Section basse : grille responsive */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            <section id="top-tracks" className="md:col-span-2">
+              <h2 className="text-2xl font-bold text-white mb-6">
+                Vos titres préférés
+              </h2>
+              <TopTracks timeRange={timeRange} />
+            </section>
+            <section id="top-genres" className="md:col-span-1">
+              <h2 className="text-2xl font-bold text-white mb-6">
+                Vos genres préférés
+              </h2>
+              <TopGenres timeRange={timeRange} />
+            </section>
+          </div>
         </div>
       </div>
     </div>
