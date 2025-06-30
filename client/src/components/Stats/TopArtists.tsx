@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
-interface Artist {
-  id: string;
-  name: string;
-  images: { url: string }[];
-  genres: string[];
-  popularity: number;
-}
+import ArtistModal, { Artist } from './ArtistModal';
 
 interface TopArtistsProps {
   timeRange: "short_term" | "medium_term" | "long_term";
@@ -32,6 +25,7 @@ const TopArtists: React.FC<TopArtistsProps> = ({ timeRange }) => {
   const [loading, setLoading] = useState(true);
   const [topGenre, setTopGenre] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
 
   useEffect(() => {
     const fetchTopArtists = async () => {
@@ -54,6 +48,14 @@ const TopArtists: React.FC<TopArtistsProps> = ({ timeRange }) => {
 
     fetchTopArtists();
   }, [timeRange]);
+
+  const handleArtistClick = (artist: Artist) => {
+    setSelectedArtist(artist);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedArtist(null);
+  };
 
   if (loading) {
     return <div className="loading">Loading...</div>;
@@ -80,7 +82,8 @@ const TopArtists: React.FC<TopArtistsProps> = ({ timeRange }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.1 }}
-            className="relative bg-spotify-dark rounded-lg flex flex-col items-center shadow-lg overflow-hidden min-h-[270px]"
+            className="relative bg-spotify-dark rounded-lg flex flex-col items-center shadow-lg overflow-hidden min-h-[270px] cursor-pointer hover:bg-spotify-light transition-colors"
+            onClick={() => handleArtistClick(artist)}
           >
             {/* Numéro Netflix-style, bien visible pour 10+ */}
             <span
@@ -132,6 +135,7 @@ const TopArtists: React.FC<TopArtistsProps> = ({ timeRange }) => {
           {showAll ? "Afficher moins" : "Afficher plus"}
         </button>
       </div>
+      <ArtistModal artist={selectedArtist} onClose={handleCloseModal} />
     </div>
   );
 };

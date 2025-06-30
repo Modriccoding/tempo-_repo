@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import TopArtists from "../components/Stats/TopArtists";
 import TopTracks from "../components/Stats/TopTracks";
 import TopGenres from "../components/Stats/TopGenres";
+import Footer from "../components/Footer";
+import TopArtistsPieChart from "../components/Stats/TopArtistsPieChart";
 
 type TimeRange = "short_term" | "medium_term" | "long_term";
 
@@ -47,76 +49,81 @@ const Stats: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-spotify-darker to-spotify-darkest p-8">
-      <Navbar />
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold text-white">
-            Vos statistiques d'écoute
-          </h1>
-          <button
-            onClick={testTopArtists}
-            className="bg-spotify-green text-black px-4 py-2 rounded-full font-medium hover:scale-105 transition-transform"
-          >
-            Tester l'accès aux données
-          </button>
-        </div>
-
-        {testMessage && (
-          <div
-            className={`mb-4 p-4 rounded ${
-              testMessage.includes("Erreur")
-                ? "bg-red-500/20"
-                : "bg-green-500/20"
-            }`}
-          >
-            {testMessage}
-          </div>
-        )}
-
-        {/* Time Range Selector */}
-        <div className="flex gap-4 mb-8">
-          {Object.entries(timeRangeLabels).map(([range, label]) => (
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-spotify-darker to-spotify-darkest text-white">
+      <div className="flex-grow p-8">
+        <Navbar />
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-4xl font-bold text-white">
+              Vos statistiques d'écoute
+            </h1>
             <button
-              key={range}
-              onClick={() => setTimeRange(range as TimeRange)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                timeRange === range
-                  ? "bg-spotify-green text-black"
-                  : "bg-spotify-light text-white hover:bg-spotify-green hover:text-black"
+              onClick={testTopArtists}
+              className="bg-spotify-green text-black px-4 py-2 rounded-full font-medium hover:scale-105 transition-transform"
+            >
+              Tester l'accès aux données
+            </button>
+          </div>
+
+          {testMessage && (
+            <div
+              className={`mb-4 p-4 rounded ${
+                testMessage.includes("Erreur")
+                  ? "bg-red-500/20"
+                  : "bg-green-500/20"
               }`}
             >
-              {label}
-            </button>
-          ))}
-        </div>
+              {testMessage}
+            </div>
+          )}
 
-        {/* Stats Sections */}
-        <div className="space-y-12">
-          <section id="top-artists">
-            <h2 className="text-2xl font-bold text-white mb-6">
-              Vos artistes préférés
-            </h2>
-            <TopArtists timeRange={timeRange} />
-          </section>
+          {/* Time Range Selector */}
+          <div className="flex gap-4 mb-8">
+            {Object.entries(timeRangeLabels).map(([range, label]) => (
+              <button
+                key={range}
+                onClick={() => setTimeRange(range as TimeRange)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  timeRange === range
+                    ? "bg-spotify-green text-black"
+                    : "bg-spotify-light text-white hover:bg-spotify-green hover:text-black"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
 
-          {/* Section basse : grille responsive */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-            <section id="top-tracks" className="md:col-span-2">
+          {/* Stats Sections */}
+          <div className="space-y-12">
+            <section id="top-artists">
               <h2 className="text-2xl font-bold text-white mb-6">
-                Vos titres préférés
+                Vos artistes préférés
               </h2>
-              <TopTracks timeRange={timeRange} />
+              <TopArtists timeRange={timeRange} />
             </section>
-            <section id="top-genres" className="md:col-span-1">
-              <h2 className="text-2xl font-bold text-white mb-6">
-                Vos genres préférés
-              </h2>
-              <TopGenres timeRange={timeRange} />
-            </section>
+            <TopArtistsPieChart timeRange={timeRange} />
+
+
+            {/* Section basse : grille responsive */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+              <section id="top-tracks" className="md:col-span-2">
+                <h2 className="text-2xl font-bold text-white mb-6">
+                  Vos titres préférés
+                </h2>
+                <TopTracks timeRange={timeRange} />
+              </section>
+              <section id="top-genres" className="md:col-span-1">
+                <h2 className="text-2xl font-bold text-white mb-6">
+                  Vos genres préférés
+                </h2>
+                <TopGenres timeRange={timeRange} />
+              </section>
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
